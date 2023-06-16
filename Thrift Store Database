@@ -1,0 +1,25 @@
+-- Create a thrift store database
+
+CREATE TABLE store (id INTEGER PRIMARY KEY, item TEXT, price INTEGER, size TEXT, color TEXT, material TEXT);
+
+INSERT INTO store VALUES (1, "skirt", 15, "L", "pink", "cotton");
+INSERT INTO store VALUES (2, "top", 10, "S", "white", "elastic");
+INSERT INTO store VALUES (3, "dress", 25, "M", "navy", "cotton");
+INSERT INTO store VALUES (4, "sneakers", 65, "L", "white", "leather");
+INSERT INTO store VALUES (5, "hoodie", 30, "L", "red", "cotton");
+INSERT INTO store VALUES (6, "sandals", 25, "M", "black", "leather");
+INSERT INTO store VALUES (7, "short", 10, "S", "black", "elastic");
+INSERT INTO store VALUES (8, "legging", 20, "M", "black", "elastic");
+INSERT INTO store VALUES (9, "jean", 22, "M", "blue", "cotton");
+INSERT INTO store VALUES (10, "sunglasses", 15, "S", "pink", "plastic");
+INSERT INTO store VALUES (11, "bandana", 8, "S", "blue", "cotton");
+INSERT INTO store VALUES (12, "bikini top", 25, "M", "white", "polyester");
+INSERT INTO store VALUES (13, "bikini bottom", 20, "M", "white", "polyester");
+INSERT INTO store VALUES (14, "hat", 30, "S", "navy", "polyester");
+INSERT INTO store VALUES (15, "beanie", 30, "M", "red", "polyester");
+
+-- display the database ordered by price.
+SELECT * FROM store ORDER BY price;
+
+-- What is the sum of all the items on the database?
+SELECT SUM(price) FROM store;
