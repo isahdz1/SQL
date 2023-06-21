@@ -1,0 +1,41 @@
+#In this SQL, I'm querying a database to discover things about the data. The database has marvel character's names along with their popularity, alignment,
+#weight, hometown, intelligence, strength, speed, durability, energy projection and fighting skills. 
+
+--  Isa Hernandez's Project: Data dig.
+
+
+
+--What is the average speed from all characters?  
+SELECT AVG(speed) AS avg_speed FROM marvels;
+
+-- Who's the strongest character? Order them from strongest to weakest.
+SELECT name, strength FROM marvels ORDER BY strength desc;
+
+--Which characters have more than 5 strength but less than 4 speed?
+SELECT name FROM marvels WHERE strength > 5 AND speed < 4;
+
+-- What are the alignment categories that have a minimum strength rating of at least  5?
+SELECT alignment FROM marvels GROUP BY alignment HAVING MIN(strength) >= 5;
+
+--How many male and female characters are there?
+SELECT gender, COUNT(*) AS how_many FROM marvels GROUP BY gender;
+
+-- Which characters have low energy and which have high energy, where high energy is above 5 and low energy is below 5?
+SELECT name,
+    CASE 
+    WHEN energy_Projection > 5 THEN "High energy"
+    WHEN energy_Projection < 5 THEN "Low energy"
+    ELSE "Excessive energy"
+    END AS energy
+    FROM marvels
+    GROUP BY name
+    ORDER BY energy;
+    
+-- Which character is the most popular and has a fighting skill of 7?
+SELECT name, fighting_Skills, MAX(popularity) AS max_popular FROM marvels WHERE fighting_Skills = 7;
+
+-- Which character has a durability of more than 4 and an intelligence of 3?
+SELECT name, durability, intelligence FROM marvels WHERE durability > 4 AND intelligence = 3;
+
+-- Which character has an average height of more than 2.0?
+SELECT name, AVG(height_m) AS height FROM marvels GROUP BY name HAVING height > 2.0;
