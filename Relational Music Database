@@ -1,0 +1,125 @@
+#In this SQL, I've created 3 related tables and joined them using relational queries to create human-readable lists. 
+
+CREATE TABLE singers (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+fullname TEXT,
+age INTEGER);
+
+INSERT INTO singers (fullname, age) VALUES ("Justin Bieber", 29);
+INSERT INTO singers (fullname, age) VALUES ("Selena Gomez", 30);
+INSERT INTO singers (fullname, age) VALUES ("Taylor Swift", 33);
+INSERT INTO singers (fullname, age) VALUES ("Shawn Mendes", 24);
+INSERT INTO singers (fullname, age) VALUES ("Camila Cabello", 26);
+INSERT INTO singers (fullname, age) VALUES ("The Weeknd", 33);
+INSERT INTO singers (fullname, age) VALUES ("Bad Bunny", 29);
+INSERT INTO singers (fullname, age) VALUES ("Rauw Alejandro", 30);
+INSERT INTO singers (fullname, age) VALUES ("Rosalia", 30);
+INSERT INTO singers (fullname, age) VALUES ("Shakira", 46);
+INSERT INTO singers (fullname, age) VALUES ("Ariana Grande", 29);
+INSERT INTO singers (fullname, age) VALUES ("Drake", 36);
+INSERT INTO singers (fullname, age) VALUES ("Rihanna", 35);
+INSERT INTO singers (fullname, age) VALUES ("Beyonce", 41);
+INSERT INTO singers (fullname, age) VALUES ("Olivia Rodrigo", 20);
+
+CREATE TABLE songs (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+person_id INTEGER,
+name TEXT,
+release_date INTEGER);
+
+INSERT INTO songs (person_id, name, release_date) VALUES (11, "Just Like Magic", 2020);
+INSERT INTO songs (person_id, name, release_date) VALUES (3, "Bad Blood", 2014);
+INSERT INTO songs (person_id, name, release_date) VALUES (6, "Blinding Lights", 2020);
+INSERT INTO songs (person_id, name, release_date) VALUES (1, "What Do You Mean?", 2015);
+INSERT INTO songs (person_id, name, release_date) VALUES (1, "Peaches", 2021);
+INSERT INTO songs (person_id, name, release_date) VALUES (8, "Mood", 2020);
+INSERT INTO songs (person_id, name, release_date) VALUES (15, "Driver's License", 2021);
+INSERT INTO songs (person_id, name, release_date) VALUES (12, "One Dance", 2016);
+INSERT INTO songs (person_id, name, release_date) VALUES (13, "Love On The Brain", 2016);
+INSERT INTO songs (person_id, name, release_date) VALUES (7, "Moscow Mule", 2022);
+INSERT INTO songs (person_id, name, release_date) VALUES (5, "Havana", 2018);
+INSERT INTO songs (person_id, name, release_date) VALUES (2, "Lose You To Love Me", 2020);
+INSERT INTO songs (person_id, name, release_date) VALUES (9, "Con Altura", 2019);
+INSERT INTO songs (person_id, name, release_date) VALUES (14, "Single Ladies", 2008);
+INSERT INTO songs (person_id, name, release_date) VALUES (4, "Mercy", 2016);
+INSERT INTO songs (person_id, name, release_date) VALUES (10, "Hips Don't Lie", 2005);
+INSERT INTO songs (person_id, name, release_date) VALUES (15, "good 4 u", 2021);
+INSERT INTO songs (person_id, name, release_date) VALUES (15, "deja vu", 2021);
+INSERT INTO songs (person_id, name, release_date) VALUES (7, "Ojitos Lindos", 2022);
+INSERT INTO songs (person_id, name, release_date) VALUES (2, "Who Says", 2011);
+INSERT INTO songs (person_id, name, release_date) VALUES (1, "  Love Yourself", 2015);
+INSERT INTO songs (person_id, name, release_date) VALUES (13, "We Found Love", 2011);
+INSERT INTO songs (person_id, name, release_date) VALUES (11, "Problem", 2014);
+INSERT INTO songs (person_id, name, release_date) VALUES (4, "Stitches", 2015);
+INSERT INTO songs (person_id, name, release_date) VALUES (8, "Cosa Guapa", 2021);
+
+
+CREATE TABLE collabs(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person1_id INTEGER,
+    person2_id INTEGER, 
+    name_collab TEXT);
+
+INSERT INTO collabs (person1_id, person2_id, name_collab)
+VALUES (7, 8, "Party");
+INSERT INTO collabs (person1_id, person2_id, name_collab)
+VALUES (8, 9, "Beso");
+INSERT INTO collabs (person1_id, person2_id, name_collab) 
+VALUES (12, 13, "Too Good");
+INSERT INTO collabs (person1_id, person2_id, name_collab) 
+VALUES (12, 13, "Work");
+INSERT INTO collabs (person1_id, person2_id, name_collab) 
+VALUES (12, 13, "What's My Name?");
+INSERT INTO collabs (person1_id, person2_id, name_collab) 
+VALUES (4, 5, "Senorita");
+INSERT INTO collabs (person1_id, person2_id, name_collab) 
+VALUES (7, 12, "Mia");
+INSERT INTO collabs (person1_id, person2_id, name_collab) 
+VALUES (1, 4, "Monster");
+INSERT INTO collabs (person1_id, person2_id, name_collab) 
+VALUES (1, 11, "Stuck With U");
+INSERT INTO collabs (person1_id, person2_id, name_collab) 
+VALUES (1, 12, "Right Here");
+INSERT INTO collabs (person1_id, person2_id, name_collab) 
+VALUES (7, 9, "La Noche De Anoche");
+
+-- Join singers with their song titles.
+SELECT fullname, songs.name as Song_Title
+FROM singers
+JOIN songs
+ON singers.id = songs.person_id;
+
+--Pair collaborators with their collab title.
+SELECT a.fullname as Artist_1, b.fullname as Artist_2, name_collab as Collab_Title
+FROM collabs
+JOIN singers a 
+ON collabs.person1_id = a.id
+JOIN singers b
+ON collabs.person2_id = b.id;
+
+-- Select the singers with their release dates.
+SELECT singers.fullname, songs.release_date
+FROM singers
+LEFT JOIN songs 
+ON singers.id = songs.person_id;
+
+--Select the collab song and only one collaborator.
+SELECT name_collab, a.fullname
+FROM collabs 
+JOIN singers a
+ON collabs.person1_id = a.id;
+
+-- Select only Olivia Rodrigo's songs.
+SELECT singers.fullname, songs.name
+FROM singers
+JOIN songs
+ON singers.id = songs.person_id
+WHERE singers.fullname = "Olivia Rodrigo";
+
+-- Select the songs released after 2017, with the singer, and order them from newest to oldest.
+SELECT singers.fullname, songs.release_date, songs.name
+FROM singers
+JOIN songs
+ON singers.id = songs.person_id
+WHERE songs.release_date > 2017
+ORDER BY release_date desc;
