@@ -38,25 +38,22 @@ SELECT AVG(popularity), AVG(duration_ms)
  WHERE artist_name = "Olivia Rodrigo";
 
 # Next, I explored who the top 10 artists are based on popularity. 
-# I decided to group them by artist name to ensure that each artist appears only once on the result set.
-SELECT artist_name, MAX(popularity)
+ SELECT artist_name, popularity
  FROM BIT_DB.Spotifydata
- GROUP BY artist_name
- ORDER BY MAX(popularity) desc
+ ORDER BY popularity desc
  LIMIT 10;
 
 # I determined who released the longest song.
-SELECT artist_name, MAX(duration_ms)
+SELECT artist_name, duration_ms
 FROM BIT_DB.Spotifydata
-GROUP BY artist_name
-ORDER BY MAX(duration_ms) desc
+ORDER BY duration_ms desc
 LIMIT 1;
 
 # Then, I determined the average danceability for the 10 most popular songs.
-SELECT AVG(danceability), MAX(popularity)
+SELECT AVG(danceability), popularity
 FROM BIT_DB.Spotifydata
 GROUP BY track_name
-Order by MAX(popularity) desc
+Order by popularity desc
 LIMIT 10;
 
 # Lastly, I determined the average danceability by artist and track. 
