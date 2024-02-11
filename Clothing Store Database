@@ -1,4 +1,4 @@
--- Create a thrift store database
+# In this SQL project, I created a clothing store database.
 
 CREATE TABLE store (id INTEGER PRIMARY KEY, item TEXT, price INTEGER, size TEXT, color TEXT, material TEXT);
 
@@ -18,8 +18,8 @@ INSERT INTO store VALUES (13, "bikini bottom", 20, "M", "white", "polyester");
 INSERT INTO store VALUES (14, "hat", 30, "S", "navy", "polyester");
 INSERT INTO store VALUES (15, "beanie", 30, "M", "red", "polyester");
 
--- display the database ordered by price.
+# Then, I displayed the database ordered by price.
 SELECT * FROM store ORDER BY price;
 
--- What is the sum of all the items on the database?
+# Next, I determined the sum of all the items on the database.
 SELECT SUM(price) FROM store;
